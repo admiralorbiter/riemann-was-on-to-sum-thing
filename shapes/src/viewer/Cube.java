@@ -1,5 +1,6 @@
 package viewer;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
@@ -47,6 +48,9 @@ public class Cube {
         
         path.closePath();
         ((Graphics2D) g2).draw(path);
+        
+        Utility u = new Utility();
+        u.color(g2, vert.get(0), vert.get(1), vert.get(2), vert.get(3), Color.red);
 	}
 	
 	void transformCube(Matrix3 trans) {
