@@ -10,6 +10,8 @@ public class DemoViewer {
 	
 	static Cube cube = new Cube(0, 0, 0, 100);
 	static Matrix3 rotate;
+	static double rot=0;
+	static double rotTemp=0;
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         Container pane = frame.getContentPane();
@@ -24,7 +26,7 @@ public class DemoViewer {
         pane.add(pitchSlider, BorderLayout.EAST);
 
         //testing
-        cube.printVertices();
+        //cube.printVertices();
         
         
         // panel to display render results
@@ -39,41 +41,29 @@ public class DemoViewer {
                     g2.translate(getWidth() / 2, getHeight() / 2);
                     g2.setColor(Color.WHITE);
                     
-                    double rot=Math.toRadians(headingSlider.getValue());
+                    rot=Math.toRadians(headingSlider.getValue());
+                    
                     //double rot=90;
                     //System.out.println(rot);
                 	rotate = new Matrix3(new double[] {Math.cos(rot), 0, -Math.sin(rot),
                 														0, 1, 0,
                 														Math.sin(rot), 0, Math.cos(rot)});
-                    /*
-	                    Path2D path = new Path2D.Double();
-	                    path.moveTo(cube.vert.get(0).x, cube.vert.get(0).y);
-	                    path.lineTo(cube.vert.get(1).x, cube.vert.get(1).y);
-	                    path.lineTo(cube.vert.get(2).x, cube.vert.get(2).y);
-	                    path.lineTo(cube.vert.get(3).x, cube.vert.get(3).y);
-	                    path.lineTo(cube.vert.get(4).x, cube.vert.get(4).y);
-	                    path.lineTo(cube.vert.get(5).x, cube.vert.get(5).y);
-	                    path.lineTo(cube.vert.get(6).x, cube.vert.get(6).y);
-	                    path.lineTo(cube.vert.get(7).x, cube.vert.get(7).y);
-	                    path.closePath();
-	                    g2.draw(path);*/
-                    /*
-                    Path2D path = new Path2D.Double();
-                    Vertex v=rotate.transform(cube.vert.get(0));
-                    path.moveTo(v.x, v.y);
-                    
-                    for(int i=1; i<8; i++) {
-                    	v=rotate.transform(cube.vert.get(i));
-                    	path.lineTo(v.x, v.y);
-                    }
-                    path.closePath();
-                    g2.draw(path);
-                    */
-                    drawCube(g2);
+                	
+                	/*
+                	 * Essentially a hack since I am actually changing the vertices, I only want to
+                	 * update the transform if it is being rotated or it will update everytime the 
+                	 * screen refreshes.
+                	*/
+                	if(rot!=rotTemp) { 
+                		cube.transformCube(rotate);
+                		rotTemp=rot;
+                	}
+                	cube.drawCube(g2);
+                	
                     
                 }
             };
-        System.out.println("Test");
+
         pane.add(renderPanel, BorderLayout.CENTER);
 
         headingSlider.addChangeListener(e->renderPanel.repaint());
@@ -83,16 +73,4 @@ public class DemoViewer {
         frame.setVisible(true);
     }
     
-    static void drawCube(Graphics g2) {
-    	Path2D path = new Path2D.Double();
-        Vertex v=rotate.transform(cube.vert.get(0));
-        path.moveTo(v.x, v.y);
-        
-        for(int i=1; i<8; i++) {
-        	v=rotate.transform(cube.vert.get(i));
-        	path.lineTo(v.x, v.y);
-        }
-        path.closePath();
-        ((Graphics2D) g2).draw(path);
-    }
 }

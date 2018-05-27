@@ -8,7 +8,7 @@ public class Matrix3 {
 		this.values=values;
 	}
 
-	Vertex transform(Vertex in) {
+	Vertex transformVert(Vertex in) {
 		double xOut;
 		double yOut;
 		double zOut;

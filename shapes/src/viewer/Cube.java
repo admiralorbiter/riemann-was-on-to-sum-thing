@@ -1,34 +1,12 @@
 package viewer;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cube {
-	/*
-	List<Square> squ = new ArrayList<>();
-	
-	Cube(double x, double y, double z, double sideLength){
-		Vertex v1=new Vertex(x, y, z);
-		double sl=sideLength;
-		Square side;
-		
-		side=new Square(v1,
-						new Vertex(v1.x+sl, v1.y, v1.z),
-						new Vertex(v1.x, v1.y+sl, v1.z),
-						new Vertex(v1.x+sl, v1.y+sl, v1.z),
-						Color.red);
-		squ.add(side);
-		
-		side=new Square(v1,
-				new Vertex(v1.x+sl, v1.y, v1.z),
-				new Vertex(v1.x, v1.y+sl, v1.z),
-				new Vertex(v1.x+sl, v1.y+sl, v1.z),
-				Color.red);
-		
-		
-	}*/
 	
 	List<Vertex> vert = new ArrayList<>();
 	
@@ -47,6 +25,36 @@ public class Cube {
 		vert.add(new Vertex(x+sl, y, z+sl));	//v8
 	}
 	
+	void drawCube(Graphics g2) {
+		Path2D path = new Path2D.Double();
+        path.moveTo(vert.get(0).x, vert.get(0).y);
+        for(int i=1; i<=3; i++) {
+        	path.lineTo(vert.get(i).x, vert.get(i).y);
+        }
+        path.lineTo(vert.get(0).x, vert.get(0).y);
+        
+        path.moveTo(vert.get(4).x, vert.get(4).y);
+        for(int i=5; i<=7; i++) {
+        	path.lineTo(vert.get(i).x, vert.get(i).y);
+        }
+        path.lineTo(vert.get(4).x, vert.get(4).y);
+        
+        for(int i=0; i<=3; i++) {
+        	path.moveTo(vert.get(i).x, vert.get(i).y);
+        	path.lineTo(vert.get(i+4).x, vert.get(i+4).y);
+        }
+        
+        
+        path.closePath();
+        ((Graphics2D) g2).draw(path);
+	}
+	
+	void transformCube(Matrix3 trans) {
+		for(int i=0; i<vert.size(); i++)
+			vert.set(i, trans.transformVert(vert.get(i)));
+	}
+	
+	//Test Function
 	void printVertices() {
 		for(int i=0; i<vert.size(); i++)
 			System.out.println(vert.get(i).x+", "+vert.get(i).y+", "+vert.get(i).z);
