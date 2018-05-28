@@ -82,7 +82,8 @@ public class DemoViewer {
                 		//cube.transformCube(transform);
                 		pitchTemp=pitch;
                 	}
-                	cube.drawCube(g2);
+                	Matrix3 transformMatrix=rotateMatrix.multiply(pitchMatrix);
+                	cube.drawCube(g2, transformMatrix);
                 	
                     
                 }

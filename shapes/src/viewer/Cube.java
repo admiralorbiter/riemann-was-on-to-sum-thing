@@ -26,23 +26,32 @@ public class Cube {
 		vert.add(new Vertex(x+sl, y, z+sl));	//v8
 	}
 	
-	void drawCube(Graphics g2) {
+	List<Vertex> transformCube(Matrix3 transformMatrix){
+		List<Vertex> transform = new ArrayList<>();
+		for(int i=0; i<vert.size(); i++) {
+			transform.add(transformMatrix.transformVert(vert.get(i)));
+		}
+		return transform;
+	}
+	
+	void drawCube(Graphics g2, Matrix3 transformMatrix) {
+		List<Vertex> transform = transformCube(transformMatrix);
 		Path2D path = new Path2D.Double();
-        path.moveTo(vert.get(0).x, vert.get(0).y);
+        path.moveTo(transform.get(0).x, transform.get(0).y);
         for(int i=1; i<=3; i++) {
-        	path.lineTo(vert.get(i).x, vert.get(i).y);
+        	path.lineTo(transform.get(i).x, transform.get(i).y);
         }
-        path.lineTo(vert.get(0).x, vert.get(0).y);
+        path.lineTo(transform.get(0).x, transform.get(0).y);
         
-        path.moveTo(vert.get(4).x, vert.get(4).y);
+        path.moveTo(transform.get(4).x, transform.get(4).y);
         for(int i=5; i<=7; i++) {
-        	path.lineTo(vert.get(i).x, vert.get(i).y);
+        	path.lineTo(transform.get(i).x, transform.get(i).y);
         }
-        path.lineTo(vert.get(4).x, vert.get(4).y);
+        path.lineTo(transform.get(4).x, transform.get(4).y);
         
         for(int i=0; i<=3; i++) {
-        	path.moveTo(vert.get(i).x, vert.get(i).y);
-        	path.lineTo(vert.get(i+4).x, vert.get(i+4).y);
+        	path.moveTo(transform.get(i).x, transform.get(i).y);
+        	path.lineTo(transform.get(i+4).x, transform.get(i+4).y);
         }
         
         
@@ -57,11 +66,11 @@ public class Cube {
         u.color(g2, vert.get(3), vert.get(2), vert.get(6), vert.get(7), Color.yellow);
         */
 	}
-	
+	/*
 	void transformCube(Matrix3 trans) {
 		for(int i=0; i<vert.size(); i++)
 			vert.set(i, trans.transformVert(vert.get(i)));
-	}
+	}*/
 	
 	//Test Function
 	void printVertices() {
