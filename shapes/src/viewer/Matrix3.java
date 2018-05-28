@@ -22,6 +22,19 @@ public class Matrix3 {
 		return out;
 	}
 	
+	Matrix3 multiply(Matrix3 other) {
+		double[] results=new double[9];
+		for(int row=0; row<3; row++) {
+			for(int col=0; col<3; col++) {
+				for(int i=0; i<3; i++) {
+					results[row*3+col]+=
+							this.values[row*3+i]*other.values[i*3+col];
+				}
+			}
+		}
+		return new Matrix3(results);
+	}
+	
 	Vertex translate(double x, double y, Vertex in) {
 		Vertex out=new Vertex(in.x+x, in.y+y, in.z);
 		

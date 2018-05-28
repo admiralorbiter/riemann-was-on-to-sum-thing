@@ -49,8 +49,13 @@ public class Cube {
         path.closePath();
         ((Graphics2D) g2).draw(path);
         
+        /*
         Utility u = new Utility();
         u.color(g2, vert.get(0), vert.get(1), vert.get(2), vert.get(3), Color.red);
+        u.color(g2, vert.get(0), vert.get(1), vert.get(5), vert.get(4), Color.blue);
+        u.color(g2, vert.get(4), vert.get(5), vert.get(6), vert.get(7), Color.green);
+        u.color(g2, vert.get(3), vert.get(2), vert.get(6), vert.get(7), Color.yellow);
+        */
 	}
 	
 	void transformCube(Matrix3 trans) {
