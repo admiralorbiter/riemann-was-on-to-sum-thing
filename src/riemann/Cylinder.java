@@ -33,8 +33,9 @@ public class Cylinder {
 			double yValue=Math.sqrt(r*r-(dVert*i)*(dVert*i));
 			vert.add(new Vertex(x+dx,yValue, dVert*i ));
 		}*/
-		
+		System.out.println(r+","+-r+","+dx);
 		for(double i=-r; i<=r; i=i+dx) {
+			System.out.println("Test");
 			double yValue=Math.sqrt(r*r-(i)*(i));
 			vert.add(new Vertex(x, yValue, i));
 		}
@@ -53,8 +54,6 @@ public class Cylinder {
 			double yValue=Math.sqrt(r*r-(i)*(i));
 			vert.add(new Vertex(x+thickness, -yValue, i));
 		}
-		
-		
 		
 	}
 	
@@ -97,7 +96,6 @@ public class Cylinder {
 		List<Vertex> transform = transformCube(transformMatrix);
 		
 		Path2D path = new Path2D.Double();
-
         path.moveTo(transform.get(0).x, transform.get(0).y);
 		
 		for(int i=0; i<vert.size()/2; i++)
