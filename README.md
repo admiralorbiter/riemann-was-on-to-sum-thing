@@ -8,6 +8,10 @@ First, areaUnderFunction, calculates and shows the area under a curve.
 The second, VolumeSolidofRevolution, calculates and displays the solid of a revolution.
 The application, Reimann, will be the final application where it takes in input, calculates and displays the solid, then generates the 
 code for the 3d printer.
+
+<p style="color:red;">The program currently has issues running. This project has been abondon due to updated workflow that allows to easily do this. In the future, this project will be
+focused on calculating the area and projecting solids.</p>
+
 <br>
 <h3>Demo of a 3d Viewer with axis controls</h3>
 
